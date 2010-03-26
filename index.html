@@ -1,0 +1,93 @@
+<html>
+  <head>
+    <title>Newer Yankee Workshop - No-SQL Workshop - Featuring Riak</title>
+    <style type="text/css">
+      body {
+        font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Helvetica, Arial, sans-serif;
+        color: #222;
+      }
+      h1 {
+        font-family: Georiga, serif;
+        font-weight: normal;
+        border-bottom: 1px solid #ddd;
+        margin-top: 20px;
+      }
+      h2 {
+        font-size: 122%;
+      }
+      pre code {
+        background-color: #eee;
+        color: #000;
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+
+    <div style="width: 80%; margin: 0 auto;">
+
+      <h1>No-SQL Workshop - Featuring Riak</h1>
+
+      <p><a href="http://www.vermonster.com/contact">Vermonster</a> and friends are hosting 
+      a free two hour workshop Tuesday, March 30th at 7:00 PM focusing on using NoSQL 
+      data stores with Ruby.
+
+      <p>The workshop will start with a very quick overview of No-SQL, cover the CAP theorem,
+      and introduce <a href="http://riak.basho.com/">Riak</a>, a key-store No-SQL database.  
+      Then we will do some hands-on work and build a simple No-SQL document object.  Next we
+      will talk about schema design and introduce a linked and embedded documents.  The 
+      session will end with some more hands-on work hacking on an actual data model.</p>
+
+      <p>Food and beverages will be on the house.</p> 
+
+      <p>This is the third installment of  "The Newer Yankee Workshops" for New Englanders 
+      who want to get there Ruby on.</p> 
+
+      <p>Recent versions of <a href="http://git-scm.com">Git</a>, <a href="http://www.ruby-lang.org/en/">Ruby</a> and <a href="http://docs.rubygems.org">Gem</a> required. <a href="http://www.newyankee.com/about.php" title="The New Yankee Workshop">Toolbelt and flannel</a> optional.</p> 
+
+      <h1>Prerequisites</h1>
+      <ul>
+        <li>OSX, BSD or Linux</li>
+        <li><a href="http://git-scm.com/">Git</a> - helpful if you have a <a href="http://github.com">github account</a> too</li>
+        <li><a href="http://ruby-lang.org">Ruby</a></li>
+        <li><a href="http://docs.rubygems.org">Rubygems</a></li>
+        <li>Need to be able to compile C libraries (Xcode, build-essentials, etc.)</li> 
+      </ul>
+
+      <h1>Setup Ruby and Gemset</h1>
+
+      <h2>Install RVM -- <a href="http://rvm.beginrescueend.com/">Ruby Version Manager</a></h2>
+      <pre><code>
+      $ gem rvm
+      $ rvm-install
+      </code></pre>
+
+      <h2>Install ruby 1.9.1</h2>
+      <pre><code>
+      $ rvm install 1.9.1
+      $ ruby -v
+      </code></pre>
+      (you should see a ruby 1.9.1 version installed)
+
+      <h2>Create a gemset for the workshop</h2>
+      <pre><code>
+      $ rvm gemset create nyw-nosql
+      </code></pre>
+      
+      <p>You can revert back to your system ruby with <code>rvm system</code>.  To use the
+      ruby and gemset you just setup, try <code>rvm use 1.9.1@nyw-nosql</code>.</p>
+      
+
+      <h1>Install Riak</h1>
+
+      <p>The best instructions can be found on the <a href="https://wiki.basho.com/display/RIAK/Getting+Started">Riak Wiki</a>,
+      see the installation for your environment.  I've installed the binary packages for OS X and Ubuntu
+      without any problems.</p>
+
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+
+    </body>
+  </html>
