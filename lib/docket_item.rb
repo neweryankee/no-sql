@@ -1,0 +1,3 @@
+class DocketItem
+
+end
