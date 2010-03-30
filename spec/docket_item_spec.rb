@@ -4,6 +4,7 @@ describe DocketItem do
   let "docket_item" do
     DocketItem.new
   end
+
   it "should have a nil title" do
     docket_item.title.should be_nil
   end

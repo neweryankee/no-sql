@@ -8,36 +8,36 @@ describe Motion do
     motion.title.should be_nil
   end
   it "should have 0 yeas" do
-    motion.yeas.should eq 0
+    motion.yeas.should == 0
   end
   it "should have 0 nays" do
-    motion.nays.should eq 0
+    motion.nays.should == 0
   end
-  context "more yeas than neas" do
+  context "more yeas than nays" do
     before do
       motion.yeas = 2
-      motion.neas = 1
+      motion.nays = 1
     end
     it "should have passed?" do
-      motion.passed?.should eq true
+      motion.passed?.should == true
     end
   end
-  context "less yeas than neas" do
+  context "less yeas than nays" do
     before do
       motion.yeas = 1
-      motion.neas = 2
+      motion.nays = 2
     end
     it "should not have passed?" do
-      motion.passed?.should eq false
+      motion.passed?.should == false
     end
   end
-  context "equal number of yeas and neas" do
+  context "equal number of yeas and nays" do
     before do
       motion.yeas = 2
-      motion.neas = 2
+      motion.nays = 2
     end
     it "should not have passed?" do
-      motion.passed?.should eq false
+      motion.passed?.should == false
     end
   end
 end
