@@ -14,9 +14,5 @@ class Motion
     self.yeas > self.nays
   end
 
-  def save
-    CouchPotato.database.save self
-  end
-
 end
 
