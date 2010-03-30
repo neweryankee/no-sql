@@ -3,6 +3,7 @@ task :import do
 
   require 'faker'
   docket_item_ids = []
+  puts 'Creating DocketItems'
   100.times do
     docket_item = DocketItem.new(
       :title       => Faker::Lorem.sentence,
@@ -10,7 +11,9 @@ task :import do
     )
     docket_item.save
     docket_item_ids << docket_item._id
+    print '.'
   end
+  puts "\nCreating Motions"
   docket_item_ids.each do |docket_item_id|
     Kernel.rand(10).times do
       motion = Motion.new(
@@ -20,7 +23,8 @@ task :import do
         :nays           => Kernel.rand(25)
       )
       motion.save
+      print '.'
     end
   end
-
+  puts "\nDone"
 end
