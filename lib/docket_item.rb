@@ -25,7 +25,7 @@ class DocketItem
     <<-JAVASCRIPT
     function(v){
         var results = [];
-        var motion = JSON.parse(v.values[0].data); motion[key] = v.key;
+        var motion = JSON.parse(v.values[0].data); motion["key"] = v.key;
         if(motion.docket_item_key == '#{self.key}') results.push(motion);
         return results;
     }
