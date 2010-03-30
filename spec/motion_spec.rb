@@ -83,6 +83,18 @@ describe Motion do
 
 end
 
+describe Motion, "#new with attribute Hash" do
+  let "attributes" do
+    { :title => 'My Title' }
+  end
+  let "motion" do
+    Motion.new(attributes)
+  end
+  it "should have title from attributes" do
+    motion.title.should == attributes[:title]
+  end
+end
+
 describe Motion, "#all" do
   include DatabaseSpecHelper
 

@@ -59,6 +59,21 @@ describe DocketItem, "#new" do
 
 end
 
+describe DocketItem, "#new with attribute Hash" do
+  let "attributes" do
+    { :title => 'My Title', :description => 'My Description' }
+  end
+  let "docket_item" do
+    DocketItem.new(attributes)
+  end
+  it "should have title from attributes" do
+    docket_item.title.should == attributes[:title]
+  end
+  it "should have description from attributes" do
+    docket_item.description.should == attributes[:description]
+  end
+end
+
 describe DocketItem, "#all" do
   include DatabaseSpecHelper
 
