@@ -95,18 +95,63 @@ describe Motion, "#new with attribute Hash" do
   end
 end
 
-describe Motion, "#all" do
-  include DatabaseSpecHelper
-
-  let "all" do
-    Motion.all
+describe Motion, "#by_id" do
+  let "view_spec" do
+    Motion.by_id
+  end
+  before do
+    @motions = []
+    %w(b c a).each do |title|
+      motion = Motion.new
+      motion.title = title
+      CouchPotato.database.save motion
+      @motions << motion
+    end
   end
   it "should be view" do
-    all.should be_a CouchPotato::View::ModelViewSpec
+    view_spec.should be_a CouchPotato::View::ModelViewSpec
+  end
+  context "used to find Motions" do
+    it "should return an Array of Motions" do
+      found = CouchPotato.database.view view_spec
+      found.should be_a Array
+      found.each {|motion| motion.should be_a Motion }
+    end
+  end
+end
+
+describe Motion, "#by_id with an existing id as key" do
+  before do
+    @motions = []
+    %w(b c a).each do |title|
+      motion = Motion.new
+      motion.title = title
+      CouchPotato.database.save motion
+      @motions << motion
+    end
+  end
+  context "used to find DocketItems" do
+    it "should turn an Array with one docket_item with that id" do
+      motion    = @motions.first
+      view_spec = Motion.by_id( :key => motion._id )
+      found     = CouchPotato.database.view(view_spec)
+      found.should be_a Array
+      found.length.should == 1
+      found.first.should == motion
+    end
+  end
+end
+
+describe Motion, "#by_title" do
+  let "view_spec" do
+    Motion.by_title
+  end
+  it "should be view" do
+    view_spec.should be_a CouchPotato::View::ModelViewSpec
   end
   context "used to find Motions" do
     let "found" do
-      CouchPotato.database.view all
+      CouchPotato.database.view view_spec
     end
     before do
       @motions = []
@@ -117,27 +162,50 @@ describe Motion, "#all" do
         @motions << motion
       end
     end
-    after do
-      destroy_all_from(Motion.all)
-    end
     it "should return an Array of Motions" do
       found.should be_a Array
-    end
-    it "should order elements by title" do
-      (1..found.length-1).each do |index|
-        found[index-1].title.should <= found[index].title
-      end
+      found.each {|motion| motion.should be_a Motion }
     end
   end
 end
 
-describe Motion, "#docket_item" do
+describe Motion, "#by_docket_item_id" do
+  let "view_spec" do
+    Motion.by_docket_item_id
+  end
+  it "should be view" do
+    view_spec.should be_a CouchPotato::View::ModelViewSpec
+  end
+end
+
+describe Motion, "#docket_item_id" do
   let "motion" do
     Motion.new
   end
-  it "should be nil" do
-    pending
+  it "should have nil docket_item" do
     motion.docket_item.should be_nil
+  end
+  it "should have nil docket_item_id" do
+    motion.docket_item_id.should be_nil
+  end
+  context "set" do
+    let "docket_item" do
+      di = DocketItem.new(:title => 'My DocketItem')
+      di.save
+      di
+    end
+    before do
+      motion.docket_item_id = docket_item._id
+    end
+    it "should have a docket_item that is a DocketItem" do
+      motion.docket_item.should_not be_nil
+      motion.docket_item.should be_a DocketItem
+    end
+    it "should have docket_item with corresponding docket_item_id" do
+      motion.docket_item_id.should_not be_nil
+      motion.docket_item_id.should be_a String
+      motion.docket_item_id.should == docket_item.id
+    end
   end
 end
 
