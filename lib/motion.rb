@@ -11,6 +11,13 @@ class Motion
   view :by_id,             :key => :_id
   view :by_docket_item_id, :key => :docket_item_id
 
+  view :total_yeas,
+       :map            => "function(doc){ if (doc.yeas > 0) emit(doc._id, doc.yeas); }",
+       :reduce         => "function(keys, values){ return sum(values) }",
+       :type           => :raw,
+       :include_docs   => false,
+       :results_filter => lambda {|results| results['rows'].first['value'] }
+
   validates_presence_of :title
 
   def passed?

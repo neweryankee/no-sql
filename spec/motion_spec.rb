@@ -178,6 +178,35 @@ describe Motion, "#by_docket_item_id" do
   end
 end
 
+describe Motion, "#total_yeas" do
+  let "view_spec" do
+    Motion.total_yeas
+  end
+  it "should be view" do
+    view_spec.should be_a CouchPotato::View::BaseViewSpec
+  end
+  context "used to find Motions" do
+    let "found" do
+      CouchPotato.database.view view_spec
+    end
+    let "yeases" do
+      [3,7,13,8,2,0]
+    end
+    before do
+      @motions = []
+      yeases.each do |yeas|
+        motion = Motion.new(:title => 'my motion', :yeas => yeas)
+        CouchPotato.database.save motion
+        @motions << motion
+      end
+    end
+    it "should return the total number of yeas" do
+      found.should be_a Integer
+      found.should == yeases.inject(0){|memo, yeas| memo += yeas }
+    end
+  end
+end
+
 describe Motion, "#docket_item_id" do
   let "motion" do
     Motion.new
