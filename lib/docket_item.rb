@@ -17,6 +17,11 @@ class DocketItem
     motions.map{|m| instantiate_from_hash(m) }
   end
 
+  def motions_via_links
+    motions = robject.walk(:bucket => "motions").flatten
+
+    motions.map{|m| instantiate(m) }
+  end
 
   private
 
@@ -46,5 +51,17 @@ class DocketItem
       doc.instance_variable_set(:@robject, Riak::RObject.new(klass.bucket, attrs[:key]))
     end 
   end
+
+  # As seen in Finders
+  def instantiate(robject)
+    klass = robject.data['_type'].constantize rescue self
+    data = {'key' => robject.key}
+    data.reverse_merge!(robject.data) rescue data
+    klass.new(data).tap do |doc|
+      doc.instance_variable_set(:@new, false)
+      doc.instance_variable_set(:@robject, robject)
+    end
+  end
+  
 
 end
