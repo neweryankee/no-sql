@@ -52,7 +52,7 @@ describe Motion do
 
     context "saved" do
       before do
-        CouchPotato.database.save motion
+        motion.save
       end
       it "should not have an _id" do
         motion._id.should be_nil
@@ -73,7 +73,7 @@ describe Motion do
 
     context "saved" do
       before do
-        CouchPotato.database.save motion
+        motion.save
       end
       it "should have an _id" do
         motion._id.should_not be_nil

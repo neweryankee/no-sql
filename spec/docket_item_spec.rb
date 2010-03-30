@@ -28,7 +28,7 @@ describe DocketItem, "#new" do
 
     context "saved" do
       before do
-        CouchPotato.database.save docket_item
+        docket_item.save
       end
       it "should not have an _id" do
         docket_item._id.should be_nil
@@ -49,7 +49,7 @@ describe DocketItem, "#new" do
 
     context "saved" do
       before do
-        CouchPotato.database.save docket_item
+        docket_item.save
       end
       it "should have an _id" do
         docket_item._id.should_not be_nil

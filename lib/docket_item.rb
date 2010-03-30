@@ -9,4 +9,8 @@ class DocketItem
 
   validates_presence_of :title
 
+  def save
+    CouchPotato.database.save self
+  end
+
 end
