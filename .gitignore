@@ -1,0 +1,6 @@
+*.swp
+*.scratch.*
+.DS_Store
+failing_spec_examples.txt
+spec_output.html
+spec/spec.opts
